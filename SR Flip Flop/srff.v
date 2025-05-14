@@ -1,20 +1,16 @@
-module srff(clk,s,r,q);
-input clk,s,r;
-output reg q;
+//sr flipflop
 
-always @ (posedge clk)begin
-        case({s,r})
-            2'b00:
-                q <= q;
-            2'b01:
-                q <= 0;
-            2'b10:
-                q <= 1;
-            2'b11:
-                q <= 1'bx;
-            default:
-                q <= q;
-        endcase
-end
-                
+module SR_ff ( input clk, reset,S,R,output reg Q);
+  
+  initial Q=0;
+  always@(posedge clk or negedge reset)
+  begin
+  Q<=0;
+        if(~reset) Q <= 0;
+        else begin
+            if(S==0&&R==0) begin Q<=Q; end
+            if(S==0&&R==1) begin Q<=0; end
+            if(S==1&&R==0) begin Q<=1; end
+            if(S==1&&R==1) begin Q<=1'bx; end
+        end end
 endmodule
