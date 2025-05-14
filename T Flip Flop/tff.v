@@ -1,12 +1,19 @@
-module T_ff(input clk,T,reset, output reg q);
-always @(posedge clk) begin
-	if(reset)
-	begin
-		q<=0;
-	end
-	else
-	begin
-		q<=~T;
-	end
-end
-endmodule
+//T flipflop with asynchronous reset
+
+module T_ff(input T,clk,reset, output reg Q);
+
+initial Q=0; 
+  always@(posedge clk or posedge reset)
+  
+   if(reset) begin
+   Q<=0;
+   end
+	else begin
+	if(T) begin
+	   Q<=~Q;
+	   end
+	else begin
+	   Q<=Q; 
+	   end
+	end	
+endmodule 	 
