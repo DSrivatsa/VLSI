@@ -1,16 +1,15 @@
-module Up_Counter_tb;
-reg clk,reset;
-wire out;
+module upcounter_testbench();
+reg clk, reset;
+wire [3:0] counter;
 
-Up_Counter dut(.clk(clk),.reset(reset),.out(out));
-always #5 clk=~clk;
+up_counter dut(clk, reset, counter);
+initial begin 
+clk=0;
+forever #5 clk=~clk;
+end
 initial begin
-clk<=0;
-reset<=0;
-#20 reset<=1;
-#80 reset<=0;
-#50 reset<=1;
-
-#20 $finish;
-end 
-endmodule
+reset=1;
+#20;
+reset=0;
+end
+endmodule 
